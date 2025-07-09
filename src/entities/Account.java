@@ -27,5 +27,12 @@ public class Account {
 		return balance;
 	}
 	
+	public void deposit(Double value) {
+		balance += value;
+	}
+
+	public void withdrawal(Double value) {
+		balance -= value;
+	}
 	
 }
