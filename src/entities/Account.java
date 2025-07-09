@@ -3,7 +3,12 @@ package entities;
 public class Account {
 	private final Integer NUMBER;
 	private String name;
-	private Double balance;
+	private double balance;
+	
+	public Account(Integer number, String name) {
+		NUMBER = number;
+		this.name = name;
+	}
 	
 	public Account(Integer number, String name, Double balance) {
 		NUMBER = number;
@@ -35,4 +40,11 @@ public class Account {
 		balance -= value;
 	}
 	
+	public String toString() {
+		return "======================\n" +
+				"Conta: " + getNUMBER()+ "\n"
+				+ "Nome: " + getName() + "\n" 
+				+ "Saldo: R$ " + String.format("%.2f", getBalance()) + "\n"
+				+ "======================";
+	}
 }
