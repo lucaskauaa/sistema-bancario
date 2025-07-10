@@ -41,8 +41,8 @@ public class Account {
 	}
 	
 	public String toString() {
-		return "======================\n" +
-				"Conta: " + getNUMBER()+ "\n"
+		return "======================\n" 
+				+ "Conta: " + getNUMBER() + "\n"
 				+ "Nome: " + getName() + "\n" 
 				+ "Saldo: R$ " + String.format("%.2f", getBalance()) + "\n"
 				+ "======================";

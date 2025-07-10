@@ -8,107 +8,142 @@ import java.util.Scanner;
 import entities.Account;
 
 public class Main {
+	
+	private static List<Account> accountLog = new ArrayList<>();
 
 	public static void main(String[] args) {
+		
 		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		
-		List<Account> accountLog = new ArrayList<>();
+		int operation;
 		
-		char menu = '0';
-		
-		while (menu != '3') {
+		do {
 			
 			System.out.println("========================");
 			System.out.println("O que você deseja fazer?");
-			System.out.println("");
+			System.out.println();
 			System.out.println("[1] Criar conta");
 			System.out.println("[2] Acessar conta");
 			System.out.println("[3] Encerrar aplicativo");
-			menu = sc.next().charAt(0);
-			System.out.println("");
+			operation = scanner.nextInt();
 			
-			if (menu == '1') {
-				System.out.println("Criação de conta:");
-				System.out.print("Insira o número da conta (0 - 1000): ");
-				Integer accountNumber = sc.nextInt();
-				
-				System.out.print("Insira o nome do proprietário da conta: ");
-				sc.nextLine();
-				String accountOwnerName = sc.nextLine();
-				
-				System.out.print("Deseja fazer um depósito inicial? s/n ");
-				Character initialDeposit = sc.next().charAt(0);
-				
-				Account account;
-				
-				double depositValue = 0.0;
-				
-				if (Character.toUpperCase(initialDeposit) == 'S') {
-					
-					System.out.print("Insira o valor do depósito: ");
-					depositValue = sc.nextDouble();
-					
-					account = new Account(accountNumber, accountOwnerName, depositValue);
-					
-				} else {
-					account = new Account(accountNumber, accountOwnerName);
-				}
-				
-				accountLog.add(account);
-				System.out.println();
-				System.out.println("Conta criada com sucesso!");
-				System.out.println();
-				
-			} else if (menu == '2'){
-				
-				System.out.print("Insira o número da conta que você quer acessar: ");
-				Integer accountNumber = sc.nextInt();
-				System.out.println();
-				
-				Account account = accountLog.stream().filter(x -> x.getNUMBER().equals(accountNumber)).findFirst().orElse(null);
-				
-				if (account == null) {
-					System.out.println("Conta inexistente!");
-					System.out.println();
-					
-				} else {
-					
-					int operation = 0;
-					
-					while (operation != 3) {
-						
-						System.out.println(account);
-						System.out.println();
-						System.out.println("[1] Sacar dinheiro");
-						System.out.println("[2] Depositar dinheiro");
-						System.out.println("[3] Voltar para o menu inicial");
-						operation = sc.nextInt();
-						
-						Double value;
-						
-						switch (operation) {
-						case 1: 
-							System.out.print("Insira o valor que você quer sacar: ");
-							value = sc.nextDouble();
-							account.withdrawal(value);
-							System.out.println("Saque realizado com sucesso!");
-							break;
-						case 2:
-							System.out.print("Insira o valor que você quer depositar: ");
-							value = sc.nextDouble();
-							account.deposit(value);
-							System.out.println("Deposito realizado com sucesso!");
-							break;
-						default:
-							break;
-						}
-					}
-				}
+			System.out.println();
+			
+			switch (operation) {
+			case 1: 
+				createAccount(scanner);
+				break;
+			case 2:
+				accessAccount(scanner);
+				break;
 			}
-		}
+			
+		} while (operation != 3);
 
-		sc.close();
+		scanner.close();
 	}
-
+	
+	static void createAccount (Scanner scanner) {
+		
+		System.out.println("Criação de conta:");
+		
+		System.out.print("Insira o número da conta (0 - 1000): ");
+		Integer accountNumber = scanner.nextInt();
+		
+		System.out.print("Insira o nome do proprietário da conta: ");
+		scanner.nextLine();
+		String accountOwnerName = scanner.nextLine();
+		
+		System.out.print("Deseja fazer um depósito inicial? s/n ");
+		Character hasInitialDeposit = scanner.next().charAt(0);
+		hasInitialDeposit = Character.toLowerCase(hasInitialDeposit);
+		
+		Account account;
+		
+		double depositValue;
+		
+		if (hasInitialDeposit == 's') {
+			
+			System.out.print("Insira o valor do depósito: ");
+			depositValue = scanner.nextDouble();
+			
+			account = new Account(accountNumber, accountOwnerName, depositValue);
+			
+		} else {
+			account = new Account(accountNumber, accountOwnerName);
+		}
+		
+		accountLog.add(account);
+		
+		System.out.println();
+		System.out.println("Conta criada com sucesso!");
+		System.out.println();
+	}
+	
+	static void accessAccount(Scanner scanner) {
+		
+		System.out.print("Insira o número da conta que você quer acessar: ");
+		int accountNumber = scanner.nextInt();
+		System.out.println();
+		
+		Account account = accountLog.stream().filter(x -> x.getNUMBER() == accountNumber).findFirst().orElse(null);
+		
+		if (account == null) {
+			System.out.println("Conta inexistente!");
+			System.out.println();
+			
+		} else {
+			carryOutOperationsOnTheAccount(scanner, account);
+			
+		}
+	}
+	
+	static void carryOutOperationsOnTheAccount (Scanner scanner, Account account) {
+		
+		int operation;
+		
+		do  {
+			
+			System.out.println(account);
+			System.out.println();
+			System.out.println("[1] Sacar dinheiro");
+			System.out.println("[2] Depositar dinheiro");
+			System.out.println("[3] Voltar para o menu inicial");
+			operation = scanner.nextInt();
+			
+			System.out.println();
+			
+			Double value;
+			
+			switch (operation) {
+			case 1: 
+				System.out.print("Insira o valor que você quer sacar: ");
+				value = scanner.nextDouble();
+				
+				account.withdrawal(value);
+				
+				System.out.println();
+				System.out.println("Saque realizado com sucesso!");
+				System.out.println();
+				break;
+				
+			case 2:
+				
+				System.out.print("Insira o valor que você quer depositar: ");
+				value = scanner.nextDouble();
+				
+				account.deposit(value);
+				
+				System.out.println();
+				System.out.println("Deposito realizado com sucesso!");
+				System.out.println();
+				break;
+				
+			}
+			
+		} while (operation != 3);
+		
+	}
+	
 }
