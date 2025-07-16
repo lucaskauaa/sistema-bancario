@@ -1,37 +1,45 @@
 package entities;
 
 public class Account {
-	private final Integer NUMBER;
-	private String name;
+	
+	private Customer customer;
+	private final  Integer NUMBER;
+	private String password;
 	private double balance;
 	
-	public Account(Integer number, String name) {
-		NUMBER = number;
-		this.name = name;
-	}
-	
-	public Account(Integer number, String name, Double balance) {
-		NUMBER = number;
-		this.name = name;
+	public Account(Customer customer, Integer number, String password, Double balance) {
+		this.customer = customer;
+		this.NUMBER = number;
+		this.password = password;
 		this.balance = balance;
 	}
 	
-	public Integer getNUMBER() {
+	public Account(Customer customer, Integer number, String password) {
+		this.customer = customer;
+		this.NUMBER = number;
+		this.password = password;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getNumber() {
 		return NUMBER;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	public Double getBalance() {
 		return balance;
 	}
-	
+
 	public void deposit(Double value) {
 		balance += value;
 	}
@@ -40,11 +48,19 @@ public class Account {
 		balance -= value;
 	}
 	
+	@Override
 	public String toString() {
-		return "======================\n" 
-				+ "Conta: " + getNUMBER() + "\n"
-				+ "Nome: " + getName() + "\n" 
-				+ "Saldo: R$ " + String.format("%.2f", getBalance()) + "\n"
-				+ "======================";
+		StringBuilder text = new StringBuilder();
+		
+		text.append("=========================\n");
+		text.append("Conta: \n");
+		text.append(customer + "\n");
+		text.append("Número da conta: #");
+		text.append(getNumber() + "\n");
+		text.append("Saldo: R$");
+		text.append(String.format("%.2f", getBalance()));
+		
+		return text.toString();
+		
 	}
 }
