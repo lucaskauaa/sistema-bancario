@@ -114,36 +114,40 @@ public class Main {
 			
 			System.out.println();
 			
-			Double value;
-			
 			switch (operation) {
 			case 1: 
-				System.out.print("Insira o valor que você quer sacar: ");
-				value = scanner.nextDouble();
-				
-				account.withdrawal(value);
-				
-				System.out.println();
-				System.out.println("Saque realizado com sucesso!");
-				System.out.println();
+				makeWithdrawal(account, scanner);
 				break;
 				
 			case 2:
-				
-				System.out.print("Insira o valor que você quer depositar: ");
-				value = scanner.nextDouble();
-				
-				account.deposit(value);
-				
-				System.out.println();
-				System.out.println("Deposito realizado com sucesso!");
-				System.out.println();
+				makeDeposit(account, scanner);
 				break;
-				
 			}
 			
 		} while (operation != 3);
 		
+	}
+	
+	static void makeWithdrawal (Account account, Scanner scanner) {
+		System.out.print("Insira o valor que você quer sacar: ");
+		Double value = scanner.nextDouble();
+		
+		account.withdrawal(value);
+		
+		System.out.println();
+		System.out.println("Saque realizado com sucesso!");
+		System.out.println();
+	}
+	
+	static void makeDeposit(Account account, Scanner scanner) {
+		System.out.print("Insira o valor que você quer depositar: ");
+		Double value = scanner.nextDouble();
+		
+		account.deposit(value);
+		
+		System.out.println();
+		System.out.println("Deposito realizado com sucesso!");
+		System.out.println();
 	}
 	
 }
