@@ -25,6 +25,7 @@ public class Main {
 			System.out.println("[2] Acessar conta");
 			System.out.println("[3] Encerrar programa");
 			operation = scanner.nextInt();
+			scanner.nextLine();
 			
 			System.out.println();
 			

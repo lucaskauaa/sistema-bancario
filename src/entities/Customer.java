@@ -48,7 +48,7 @@ public class Customer {
 	public String toString() {
 		StringBuilder text = new StringBuilder();
 		
-		text.append("Nome do proprietário: ");
+		text.append("Nome do titular: ");
 		text.append(getName() + "\n");
 		text.append("Data de nascimento: ");
 		text.append(getBirthDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "\n");
