@@ -24,7 +24,7 @@ public class Bank {
 		accountList.remove(account);
 	}
 	
-	public Account findAccountByEmail(String email) {
+	public Account getAccountByEmail(String email) {
 		return accountList.stream().filter(x -> x.getCustomer().getEmail().equals(email)).findFirst().orElse(null);
 	}
 	

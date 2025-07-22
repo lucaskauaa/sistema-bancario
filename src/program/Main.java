@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import entities.Bank;
 import operations.BankOperations;
+import operations.RegistrationService;
 
 public class Main {
 
@@ -30,7 +31,7 @@ public class Main {
 			System.out.println();
 			
 			switch (operation) {
-			case 1 -> BankOperations.createAccount(bank);
+			case 1 -> RegistrationService.createAccount(bank);
 			case 2 -> BankOperations.accessAccount(bank);
 			case 3 -> System.out.println("Programa encerrado.");
 			default -> System.out.println("Opção inválida. Tente novamente.\n");
