@@ -33,7 +33,7 @@ public class Main {
 			case 1 -> BankOperations.createAccount(bank);
 			case 2 -> BankOperations.accessAccount(bank);
 			case 3 -> System.out.println("Programa encerrado.");
-			default -> System.out.println("Opção inválida. Tente novamente. \n");
+			default -> System.out.println("Opção inválida. Tente novamente.\n");
 			}
 			
 		} while (operation != 3);

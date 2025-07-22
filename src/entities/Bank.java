@@ -8,14 +8,6 @@ public class Bank {
 	
 	private List<Account> accountList = new ArrayList<>();
 
-	public List<Customer> getCustomerList() {
-		return customerList;
-	}
-	
-	public List<Account> getAccountList() {
-		return accountList;
-	}
-
 	public void addCustomer(Customer customer) {
 		customerList.add(customer);
 	}
@@ -30,6 +22,18 @@ public class Bank {
 	
 	public void removeAccount(Account account) {
 		accountList.remove(account);
+	}
+	
+	public Account findAccountByEmail(String email) {
+		return accountList.stream().filter(x -> x.getCustomer().getEmail().equals(email)).findFirst().orElse(null);
+	}
+	
+	public Integer accountListSize() {
+		return accountList.size();
+	}
+	
+	public Boolean checkIfTheAccountIsActive(Account account) {
+		return accountList.contains(account);
 	}
 
 //	public Double totalBalance() {

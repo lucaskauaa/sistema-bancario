@@ -36,7 +36,7 @@ public class BankOperations {
 		System.out.print("Insira o email da conta: ");
 		String email = scanner.nextLine();
 		
-		Account account = bank.getAccountList().stream().filter(x -> x.getCustomer().getEmail().equals(email)).findFirst().orElse(null);
+		Account account = bank.findAccountByEmail(email);
 
 		if (account == null) {
 			System.out.println();
@@ -90,7 +90,7 @@ public class BankOperations {
 
 	private static Account registerAccount(Customer customer, Bank bank) {
 		
-		Integer number = bank.getAccountList().size() + 1;
+		Integer number = bank.accountListSize() + 1;
 
 		System.out.print("Defina uma senha numérica de 04 dígitos: ");
 		String password = scanner.nextLine();
@@ -144,7 +144,7 @@ public class BankOperations {
 			default -> System.out.println("Opção inválida. Tente novamente.\n");
 			}
 			
-			accountStillActive = bank.getAccountList().contains(account);
+			accountStillActive = bank.checkIfTheAccountIsActive(account);
 
 		} while (operation != 4 && accountStillActive);
 
