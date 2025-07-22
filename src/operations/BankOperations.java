@@ -33,6 +33,18 @@ public class BankOperations {
 	
 	public static void accessAccount(Bank bank) {
 		
+		Account account = authenticateEmail(bank);
+		
+		if (account != null) {
+			boolean validPassword = authenticatePassword(account);
+			
+			if (validPassword) {
+				carryOutOperationsOnTheAccount(account, bank);
+			}
+		}
+	}
+	
+	private static Account authenticateEmail(Bank bank) {
 		System.out.print("Insira o email da conta: ");
 		String email = scanner.nextLine();
 		
@@ -43,16 +55,12 @@ public class BankOperations {
 			System.out.println("Email incorreto ou conta inexistente!");
 			System.out.println("Tente novamente.");
 			System.out.println();
-
+			
+			return null;
 		} else {
-			
-			boolean validPassword = authenticatePassword(account);
-			
-			if (validPassword) {
-				carryOutOperationsOnTheAccount(account, bank);
-			}
-			
+			return account;
 		}
+		
 	}
 	
 	private static Boolean authenticatePassword (Account account) {
@@ -125,10 +133,11 @@ public class BankOperations {
 		do {
 			System.out.println(account);
 			System.out.println();
-			System.out.println("[1] Sacar dinheiro");
-			System.out.println("[2] Depositar dinheiro");
-			System.out.println("[3] Encerrar conta");
-			System.out.println("[4] Voltar para o menu inicial");
+			System.out.println("[1] Transferir");
+			System.out.println("[2] Sacar dinheiro");
+			System.out.println("[3] Depositar dinheiro");	
+			System.out.println("[4] Encerrar conta");
+			System.out.println("[5] Voltar para o menu inicial");
 			System.out.println();
 			System.out.print("Escolha uma opção: ");
 			operation = scanner.nextInt();
@@ -137,17 +146,42 @@ public class BankOperations {
 			System.out.println();
 
 			switch (operation) {
-			case 1 -> makeWithdrawal(account);
-			case 2 -> makeDeposit(account);
-			case 3 -> closeAccount(account, bank);
-			case 4 -> System.out.println("Voltando para o menu inical...\n");
+			case 1 -> transaction(account, bank);
+			case 2 -> makeWithdrawal(account);
+			case 3 -> makeDeposit(account);
+			case 4 -> closeAccount(account, bank);
+			case 5 -> System.out.println("Voltando para o menu inical...\n");
 			default -> System.out.println("Opção inválida. Tente novamente.\n");
 			}
 			
 			accountStillActive = bank.checkIfTheAccountIsActive(account);
 
-		} while (operation != 4 && accountStillActive);
+		} while (operation != 5 && accountStillActive);
 
+	}
+	
+	private static void transaction(Account account, Bank bank) {
+		
+		Account account02 = authenticateEmail(bank);
+		
+		if (account02 != null) {
+			System.out.print("Valor a ser transferido: ");
+			Double amountToBeTransfered = scanner.nextDouble();
+			scanner.nextLine();
+			
+			boolean validPassword = authenticatePassword(account);
+			
+			if (validPassword) {
+			account.withdrawal(amountToBeTransfered);
+			
+			account02.deposit(amountToBeTransfered);
+			
+			System.out.println();
+			System.out.println("Transferência realizada com sucesso!");
+			System.out.printf("Valor transferido: R$%.2f%n", amountToBeTransfered);
+			System.out.println();
+			}
+		}
 	}
 	
 	private static void closeAccount(Account account, Bank bank) {
