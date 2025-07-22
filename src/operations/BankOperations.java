@@ -33,10 +33,10 @@ public class BankOperations {
 	
 	public static void accessAccount(Bank bank) {
 		
-		System.out.print("Insira o email da conta que você quer acessar: ");
+		System.out.print("Insira o email da conta: ");
 		String email = scanner.nextLine();
 		
-		Account account = bank.getAccountLog().stream().filter(x -> x.getCustomer().getEmail().equals(email)).findFirst().orElse(null);
+		Account account = bank.getAccountList().stream().filter(x -> x.getCustomer().getEmail().equals(email)).findFirst().orElse(null);
 
 		if (account == null) {
 			System.out.println();
@@ -45,24 +45,32 @@ public class BankOperations {
 			System.out.println();
 
 		} else {
-			authenticatePassword(account);
+			
+			boolean validPassword = authenticatePassword(account);
+			
+			if (validPassword) {
+				carryOutOperationsOnTheAccount(account, bank);
+			}
+			
 		}
 	}
 	
-	private static void authenticatePassword (Account account) {
+	private static Boolean authenticatePassword (Account account) {
 		System.out.print("Digite a senha da conta: ");
 		String password = scanner.nextLine();
 		
 		System.out.println();
 		
-		Boolean validPassword = password.equals(account.getPassword());
+		boolean validPassword = password.equals(account.getPassword());
 		
 		if (validPassword) {
-			carryOutOperationsOnTheAccount(account);
+			return true;
 			
 		} else {
 			System.out.println("Senha incorreta!");
+			System.out.println("Tente novamente.");
 			System.out.println();
+			return false;
 		}
 	}
 
@@ -82,7 +90,7 @@ public class BankOperations {
 
 	private static Account registerAccount(Customer customer, Bank bank) {
 		
-		Integer number = bank.getAccountLog().size() + 1;
+		Integer number = bank.getAccountList().size() + 1;
 
 		System.out.print("Defina uma senha numérica de 04 dígitos: ");
 		String password = scanner.nextLine();
@@ -108,16 +116,21 @@ public class BankOperations {
 
 	}
 
-	private static void carryOutOperationsOnTheAccount(Account account) {
+	private static void carryOutOperationsOnTheAccount(Account account, Bank bank) {
 
 		int operation;
+		
+		boolean accountStillActive;
 
 		do {
 			System.out.println(account);
 			System.out.println();
 			System.out.println("[1] Sacar dinheiro");
 			System.out.println("[2] Depositar dinheiro");
-			System.out.println("[3] Voltar para o menu inicial");
+			System.out.println("[3] Encerrar conta");
+			System.out.println("[4] Voltar para o menu inicial");
+			System.out.println();
+			System.out.print("Escolha uma opção: ");
 			operation = scanner.nextInt();
 			scanner.nextLine();
 
@@ -126,10 +139,36 @@ public class BankOperations {
 			switch (operation) {
 			case 1 -> makeWithdrawal(account);
 			case 2 -> makeDeposit(account);
+			case 3 -> closeAccount(account, bank);
+			case 4 -> System.out.println("Voltando para o menu inical...\n");
+			default -> System.out.println("Opção inválida. Tente novamente.\n");
 			}
+			
+			accountStillActive = bank.getAccountList().contains(account);
 
-		} while (operation != 3);
+		} while (operation != 4 && accountStillActive);
 
+	}
+	
+	private static void closeAccount(Account account, Bank bank) {
+		
+		if (account.getBalance() != 0.0) {
+			System.out.println("É necessário sacar ou transferir todo o dinheiro da conta antes de encerrá-la!");
+			System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
+			System.out.println();
+			
+		} else {
+			
+			boolean validPassword = authenticatePassword(account);
+			
+			if (validPassword) {
+				bank.removeAccount(account);
+				
+				System.out.println("Conta encerrada com sucesso!");
+				System.out.println();
+			}
+			
+		}
 	}
 
 	private static void makeWithdrawal(Account account) {
