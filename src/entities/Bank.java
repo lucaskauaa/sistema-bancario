@@ -15,7 +15,7 @@ public class Bank {
 	public void removeCustomer(Customer customer) {
 		customerList.remove(customer);
 	}
-
+	
 	public void addAccount(Account account) {
 		accountList.add(account);
 	}
@@ -35,14 +35,4 @@ public class Bank {
 	public Boolean checkIfTheAccountIsActive(Account account) {
 		return accountList.contains(account);
 	}
-
-//	public Double totalBalance() {
-//		Double total = 0.0;
-//
-//		for (Account account : accountList) {
-//			total += account.getBalance();
-//		}
-//
-//		return total;
-//	}
 }

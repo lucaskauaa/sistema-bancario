@@ -1,4 +1,4 @@
-package operations;
+package services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,14 +10,14 @@ import entities.Customer;
 
 public class RegistrationService {
 
-	static Scanner scanner = new Scanner(System.in);
+	private static Scanner scanner = new Scanner(System.in);
 
 	public static void createAccount(Bank bank) {
 
 		System.out.println("Criação de conta:");
 
 		Customer customer = registerCustomer();
-
+			
 		Account account = registerAccount(customer, bank);
 
 		customer.setAccount(account);
@@ -54,6 +54,7 @@ public class RegistrationService {
 
 		System.out.print("Deseja fazer um depósito inicial? s/n ");
 		char hasInitialDeposit = scanner.next().charAt(0);
+
 		hasInitialDeposit = Character.toLowerCase(hasInitialDeposit);
 		scanner.nextLine();
 
