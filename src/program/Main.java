@@ -19,7 +19,7 @@ public class Main {
 		int operation;
 		
 		do {
-			System.out.println("========================");
+			System.out.println("==========================");
 			System.out.println("O que você deseja fazer?");
 			System.out.println();
 			System.out.println("[1] Criar conta");
@@ -33,8 +33,12 @@ public class Main {
 			switch (operation) {
 			case 1 -> RegistrationService.createAccount(bank);
 			case 2 -> AccessService.accessAccount(bank);
-			case 3 -> System.out.println("Programa encerrado.");
-			default -> System.out.println("Opção inválida. Tente novamente.\n");
+			case 3 -> {
+				System.out.println("Programa encerrado.");
+			}
+			default -> {
+				System.out.println("Opção inválida. Tente novamente.\n");
+			}
 			}
 			
 		} while (operation != 3);

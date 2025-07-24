@@ -11,7 +11,7 @@ public class AccountService {
 
 	static void makeTransaction(Account payerAccount, Bank bank) {
 
-		Account receiverAccount = AccessService.findAccountByEmail("Insira o email da conta para a qual você deseja transferir ", bank);
+		Account receiverAccount = AccessService.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);
 
 		if (receiverAccount == null)
 			return;
@@ -24,10 +24,10 @@ public class AccountService {
 		}
 
 		System.out.print("Valor a ser transferido: ");
-		Double amountToBeTransfered = scanner.nextDouble();
+		Double transferAmount = scanner.nextDouble();
 		scanner.nextLine();
 
-		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(payerAccount, amountToBeTransfered);
+		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(payerAccount, transferAmount);
 
 		if (!hasSufficientBalance)
 			return;
@@ -37,13 +37,13 @@ public class AccountService {
 		if (!validPassword)
 			return;
 
-		payerAccount.withdrawal(amountToBeTransfered);
+		payerAccount.withdrawal(transferAmount);
 
-		receiverAccount.deposit(amountToBeTransfered);
+		receiverAccount.deposit(transferAmount);
 
 		System.out.println();
 		System.out.println("Transferência realizada com sucesso!");
-		System.out.printf("Valor transferido: R$%.2f%n", amountToBeTransfered);
+		System.out.printf("Transferido R$%.2f para %s.%n", transferAmount, receiverAccount.getCustomer().getName());
 		System.out.println();
 
 	}
@@ -71,10 +71,10 @@ public class AccountService {
 
 	static void makeWithdrawal(Account account) {
 		System.out.print("Insira o valor que você quer sacar: ");
-		Double amountToBeTransfered = scanner.nextDouble();
+		Double withdrawalAmount = scanner.nextDouble();
 		scanner.nextLine();
 
-		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, amountToBeTransfered);
+		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, withdrawalAmount);
 
 		if (!hasSufficientBalance)
 			return;
@@ -84,10 +84,11 @@ public class AccountService {
 		if (!validPassword)
 			return;
 
-		account.withdrawal(amountToBeTransfered);
+		account.withdrawal(withdrawalAmount);
 
 		System.out.println();
 		System.out.println("Saque realizado com sucesso!");
+		System.out.printf("Valor sacado: R$%.2f%n", withdrawalAmount);
 		System.out.println();
 	}
 
@@ -96,6 +97,7 @@ public class AccountService {
 		if (account.getBalance() < amount) {
 			System.out.println();
 			System.out.println("Saldo insuficiente!");
+			System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
 			System.out.println();
 			return false;
 		} else {
@@ -105,13 +107,14 @@ public class AccountService {
 
 	static void makeDeposit(Account account) {
 		System.out.print("Insira o valor que você quer depositar: ");
-		Double value = scanner.nextDouble();
+		Double depositAmount = scanner.nextDouble();
 		scanner.nextLine();
 
-		account.deposit(value);
+		account.deposit(depositAmount);
 
 		System.out.println();
 		System.out.println("Deposito realizado com sucesso!");
+		System.out.printf("Valor depositado: R$%.2f%n", depositAmount);
 		System.out.println();
 	}
 }

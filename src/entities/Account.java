@@ -52,7 +52,7 @@ public class Account {
 	public String toString() {
 		StringBuilder text = new StringBuilder();
 		
-		text.append("=========================\n");
+		text.append("================================\n");
 		text.append("Conta: \n");
 		text.append(customer + "\n");
 		text.append("Número da conta: #");
