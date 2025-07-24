@@ -33,7 +33,7 @@ public class AccountMenu {
 			System.out.println();
 
 			switch (operation) {
-			case 1 -> AccountService.makeTransaction(account, bank);
+			case 1 -> TransactionService.makeTransaction(account, bank);
 			case 2 -> AccountService.makeWithdrawal(account);
 			case 3 -> AccountService.makeDeposit(account);
 			case 4 -> AccountService.displayActivityLog(account);

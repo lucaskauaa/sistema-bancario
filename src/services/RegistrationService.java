@@ -17,8 +17,11 @@ public class RegistrationService {
 		System.out.println("===================================");
 		System.out.println("Criação de conta:");
 
-		Customer customer = registerCustomer();
-			
+		Customer customer = registerCustomer(bank);
+		
+		if (customer == null) 
+			return;
+		
 		Account account = registerAccount(customer, bank);
 
 		customer.setAccount(account);
@@ -32,7 +35,7 @@ public class RegistrationService {
 		System.out.println();
 	}
 
-	private static Customer registerCustomer() {
+	private static Customer registerCustomer(Bank bank) {
 
 		System.out.print("Insira o nome do titular da conta: ");
 		String customerName = scanner.nextLine();
@@ -42,8 +45,19 @@ public class RegistrationService {
 
 		System.out.print("Email: ");
 		String email = scanner.nextLine();
-
-		return new Customer(customerName, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), email);
+		
+		Account account = bank.getAccountByEmail(email);
+		
+		if (account == null) {
+			return new Customer(customerName, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), email);
+		} else {
+			System.out.println("");
+			System.out.println("Já existe uma conta vinculada a esse email!");
+			System.out.println("");
+			
+			return null;
+		}
+		
 	}
 
 	private static Account registerAccount(Customer customer, Bank bank) {

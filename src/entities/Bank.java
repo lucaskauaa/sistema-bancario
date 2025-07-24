@@ -35,4 +35,5 @@ public class Bank {
 	public Boolean checkIfTheAccountIsActive(Account account) {
 		return accountList.contains(account);
 	}
+	
 }

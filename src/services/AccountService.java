@@ -9,58 +9,12 @@ public class AccountService {
 
 	private static Scanner scanner = new Scanner(System.in);
 
-	static void makeTransaction(Account payerAccount, Bank bank) {
-
-		Account receiverAccount = AccessService
-				.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);
-
-		if (receiverAccount == null)
-			return;
-
-		if (receiverAccount.equals(payerAccount)) {
-			System.out.println();
-			System.out.println("Você não pode transferir para a própria conta!");
-			System.out.println();
-			return;
-		}
-
-		System.out.print("Valor a ser transferido: ");
-		Double transferAmount = scanner.nextDouble();
-		scanner.nextLine();
-
-		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(payerAccount, transferAmount);
-
-		if (!hasSufficientBalance)
-			return;
-
-		boolean validPassword = AccessService.authenticatePassword(payerAccount);
-
-		if (!validPassword)
-			return;
-
-		payerAccount.withdrawal(transferAmount);
-
-		receiverAccount.deposit(transferAmount);
-
-		payerAccount.addItemToActivityLog("Transferência para "
-				+ receiverAccount.getCustomer().getEmail() + " | - R$" + String.format("%.2f", transferAmount));
-
-		receiverAccount.addItemToActivityLog("Transferência recebida de "
-				+ payerAccount.getCustomer().getEmail() + " | + R$" + String.format("%.2f", transferAmount));
-
-		System.out.println();
-		System.out.println("Transferência realizada com sucesso!");
-		System.out.printf("Transferido R$%.2f para %s.%n", transferAmount, receiverAccount.getCustomer().getName());
-		System.out.println();
-
-	}
-
 	static void makeWithdrawal(Account account) {
 		System.out.print("Valor do saque: ");
-		Double withdrawalAmount = scanner.nextDouble();
+		Double amount = scanner.nextDouble();
 		scanner.nextLine();
 
-		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, withdrawalAmount);
+		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, amount);
 
 		if (!hasSufficientBalance)
 			return;
@@ -70,17 +24,17 @@ public class AccountService {
 		if (!validPassword)
 			return;
 
-		account.withdrawal(withdrawalAmount);
+		account.withdrawal(amount);
 
-		account.addItemToActivityLog("Saque | - R$" + String.format("%.2f", withdrawalAmount));
+		account.addItemToActivityLog("Saque | - R$" + String.format("%.2f", amount));
 
 		System.out.println();
 		System.out.println("Saque realizado com sucesso!");
-		System.out.printf("Valor sacado: R$%.2f%n", withdrawalAmount);
+		System.out.printf("Valor sacado: R$%.2f%n", amount);
 		System.out.println();
 	}
 
-	private static Boolean checkIfYouHaveSufficientBalance(Account account, Double amount) {
+	static Boolean checkIfYouHaveSufficientBalance(Account account, Double amount) {
 
 		if (account.getBalance() < amount) {
 			System.out.println();
@@ -95,16 +49,16 @@ public class AccountService {
 
 	static void makeDeposit(Account account) {
 		System.out.print("Valor do depósito: ");
-		Double depositAmount = scanner.nextDouble();
+		Double amount = scanner.nextDouble();
 		scanner.nextLine();
 
-		account.deposit(depositAmount);
+		account.deposit(amount);
 
-		account.addItemToActivityLog("Depósito | + R$" + String.format("%.2f", depositAmount));
+		account.addItemToActivityLog("Depósito | + R$" + String.format("%.2f", amount));
 
 		System.out.println();
 		System.out.println("Deposito realizado com sucesso!");
-		System.out.printf("Valor depositado: R$%.2f%n", depositAmount);
+		System.out.printf("Valor depositado: R$%.2f%n", amount);
 		System.out.println();
 	}
 
