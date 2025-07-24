@@ -42,11 +42,11 @@ public class AccountService {
 
 		receiverAccount.deposit(transferAmount);
 
-		payerAccount.addItemToActivityLog("Transferência para " + receiverAccount.getCustomer().getEmail() + " | - R$"
-				+ String.format("%.2f", transferAmount));
+		payerAccount.addItemToActivityLog("Transferência para "
+				+ receiverAccount.getCustomer().getEmail() + " | - R$" + String.format("%.2f", transferAmount));
 
-		receiverAccount.addItemToActivityLog("Transferência recebida de " + payerAccount.getCustomer().getEmail()
-				+ " | + R$" + String.format("%.2f", transferAmount));
+		receiverAccount.addItemToActivityLog("Transferência recebida de "
+				+ payerAccount.getCustomer().getEmail() + " | + R$" + String.format("%.2f", transferAmount));
 
 		System.out.println();
 		System.out.println("Transferência realizada com sucesso!");
@@ -56,7 +56,7 @@ public class AccountService {
 	}
 
 	static void makeWithdrawal(Account account) {
-		System.out.print("Insira o valor que você quer sacar: ");
+		System.out.print("Valor do saque: ");
 		Double withdrawalAmount = scanner.nextDouble();
 		scanner.nextLine();
 
@@ -94,7 +94,7 @@ public class AccountService {
 	}
 
 	static void makeDeposit(Account account) {
-		System.out.print("Insira o valor que você quer depositar: ");
+		System.out.print("Valor do depósito: ");
 		Double depositAmount = scanner.nextDouble();
 		scanner.nextLine();
 
@@ -106,6 +106,22 @@ public class AccountService {
 		System.out.println("Deposito realizado com sucesso!");
 		System.out.printf("Valor depositado: R$%.2f%n", depositAmount);
 		System.out.println();
+	}
+
+	static void displayActivityLog(Account account) {
+
+		if (account.activityLogSize() == 0) {
+			System.out.println("-> A conta ainda não possui nehuma atividade!");
+			System.out.println();
+
+		} else {
+
+			for (String activity : account.getActivityLog()) {
+				System.out.println(activity);
+			}
+
+			System.out.println();
+		}
 	}
 
 	static void closeAccount(Account account, Bank bank) {
@@ -124,6 +140,7 @@ public class AccountService {
 			return;
 
 		bank.removeAccount(account);
+		bank.removeCustomer(account.getCustomer());
 		System.out.println("Conta encerrada com sucesso!");
 		System.out.println();
 
