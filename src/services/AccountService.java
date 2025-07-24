@@ -11,7 +11,8 @@ public class AccountService {
 
 	static void makeTransaction(Account payerAccount, Bank bank) {
 
-		Account receiverAccount = AccessService.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);
+		Account receiverAccount = AccessService
+				.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);
 
 		if (receiverAccount == null)
 			return;
@@ -41,30 +42,15 @@ public class AccountService {
 
 		receiverAccount.deposit(transferAmount);
 
+		payerAccount.addItemToActivityLog("Transferência para " + receiverAccount.getCustomer().getEmail() + " | - R$"
+				+ String.format("%.2f", transferAmount));
+
+		receiverAccount.addItemToActivityLog("Transferência recebida de " + payerAccount.getCustomer().getEmail()
+				+ " | + R$" + String.format("%.2f", transferAmount));
+
 		System.out.println();
 		System.out.println("Transferência realizada com sucesso!");
 		System.out.printf("Transferido R$%.2f para %s.%n", transferAmount, receiverAccount.getCustomer().getName());
-		System.out.println();
-
-	}
-
-	static void closeAccount(Account account, Bank bank) {
-
-		if (account.getBalance() != 0.0) {
-			System.out.println("É necessário sacar ou transferir todo o dinheiro da conta antes de encerrá-la!");
-			System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
-			System.out.println();
-
-			return;
-		}
-
-		boolean validPassword = AccessService.authenticatePassword(account);
-
-		if (!validPassword)
-			return;
-	
-		bank.removeAccount(account);
-		System.out.println("Conta encerrada com sucesso!");
 		System.out.println();
 
 	}
@@ -85,6 +71,8 @@ public class AccountService {
 			return;
 
 		account.withdrawal(withdrawalAmount);
+
+		account.addItemToActivityLog("Saque | - R$" + String.format("%.2f", withdrawalAmount));
 
 		System.out.println();
 		System.out.println("Saque realizado com sucesso!");
@@ -112,9 +100,32 @@ public class AccountService {
 
 		account.deposit(depositAmount);
 
+		account.addItemToActivityLog("Depósito | + R$" + String.format("%.2f", depositAmount));
+
 		System.out.println();
 		System.out.println("Deposito realizado com sucesso!");
 		System.out.printf("Valor depositado: R$%.2f%n", depositAmount);
 		System.out.println();
+	}
+
+	static void closeAccount(Account account, Bank bank) {
+
+		if (account.getBalance() != 0.0) {
+			System.out.println("É necessário sacar ou transferir todo o dinheiro da conta antes de encerrá-la!");
+			System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
+			System.out.println();
+
+			return;
+		}
+
+		boolean validPassword = AccessService.authenticatePassword(account);
+
+		if (!validPassword)
+			return;
+
+		bank.removeAccount(account);
+		System.out.println("Conta encerrada com sucesso!");
+		System.out.println();
+
 	}
 }
