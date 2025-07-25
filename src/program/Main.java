@@ -1,31 +1,29 @@
 package program;
 
-import java.util.Scanner;
-
 import entities.Bank;
 import services.AccessService;
 import services.RegistrationService;
+import util.InputReader;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Scanner scanner = new Scanner(System.in);
-		
 		Bank bank = new Bank();
+		
+		StringBuilder menuText = new StringBuilder();
+		
+		menuText.append("==========================\n");
+		menuText.append("O que você deseja fazer?\n");
+		menuText.append("\n");
+		menuText.append("[1] Criar conta\n");
+		menuText.append("[2] Acessar conta\n");
+		menuText.append("[3] Encerrar programa\n");
 		
 		int operation;
 		
 		do {
-			System.out.println("==========================");
-			System.out.println("O que você deseja fazer?");
-			System.out.println();
-			System.out.println("[1] Criar conta");
-			System.out.println("[2] Acessar conta");
-			System.out.println("[3] Encerrar programa");
-			operation = scanner.nextInt();
-			scanner.nextLine();
-			
+			operation = InputReader.readInt(menuText.toString());
 			System.out.println();
 			
 			switch (operation) {
@@ -40,7 +38,5 @@ public class Main {
 			}
 			
 		} while (operation != 3);
-
-		scanner.close();
 	}
 }

@@ -1,13 +1,10 @@
 package services;
 
-import java.util.Scanner;
-
 import entities.Account;
 import entities.Bank;
+import util.InputReader;
 
 public class AccessService {
-
-	private static Scanner scanner = new Scanner(System.in);
 
 	public static void accessAccount(Bank bank) {
 
@@ -29,8 +26,8 @@ public class AccessService {
 	}
 
 	static Account findAccountByEmail(String message, Bank bank) {
-		System.out.print(message);
-		String email = scanner.nextLine();
+		
+		String email = InputReader.readString(message);
 
 		Account account = bank.getAccountByEmail(email);
 
@@ -46,8 +43,8 @@ public class AccessService {
 	}
 
 	static Boolean authenticatePassword(Account account) {
-		System.out.print("Digite a senha da conta: ");
-		String password = scanner.nextLine();
+		
+		String password = InputReader.readString("Digite a senha da conta: ");
 
 		System.out.println();
 

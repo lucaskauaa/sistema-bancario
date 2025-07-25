@@ -1,18 +1,14 @@
 package services;
 
-import java.util.Scanner;
-
 import entities.Account;
 import entities.Bank;
+import util.InputReader;
 
 public class AccountService {
 
-	private static Scanner scanner = new Scanner(System.in);
-
 	static void makeWithdrawal(Account account) {
-		System.out.print("Valor do saque: ");
-		Double amount = scanner.nextDouble();
-		scanner.nextLine();
+		
+		Double amount = InputReader.readDouble("Valor do saque: ");
 
 		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, amount);
 
@@ -32,7 +28,6 @@ public class AccountService {
 
 		account.addItemToActivityLog("Saque | - R$" + String.format("%.2f", amount));
 
-		System.out.println();
 		System.out.println("Saque realizado com sucesso!");
 		System.out.printf("Valor sacado: R$%.2f%n", amount);
 		System.out.println();
@@ -52,9 +47,8 @@ public class AccountService {
 	}
 
 	static void makeDeposit(Account account) {
-		System.out.print("Valor do depósito: ");
-		Double amount = scanner.nextDouble();
-		scanner.nextLine();
+		
+		Double amount = InputReader.readDouble("Valor do depósito: ");
 
 		account.deposit(amount);
 

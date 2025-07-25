@@ -1,35 +1,34 @@
 package services;
 
-import java.util.Scanner;
-
 import entities.Account;
 import entities.Bank;
+import util.InputReader;
 
 public class AccountMenu {
 
-	private static Scanner scanner = new Scanner(System.in);
-
 	static void carryOutOperationsOnTheAccount(Account account, Bank bank) {
+
+		StringBuilder menuText = new StringBuilder();
+
+		menuText.append(account + "\n");
+		menuText.append("\n");
+		menuText.append("[1] Transferir\n");
+		menuText.append("[2] Sacar dinheiro\n");
+		menuText.append("[3] Depositar dinheiro\n");
+		menuText.append("[4] Registro de atividades\n");
+		menuText.append("[5] Encerrar conta\n");
+		menuText.append("\n");
+		menuText.append("[0] Voltar para o menu inicial\n");
+		menuText.append("\n");
+		menuText.append("Escolha uma opção: ");
 
 		int operation;
 
 		boolean accountStillActive;
 
 		do {
-			System.out.println(account);
-			System.out.println();
-			System.out.println("[1] Transferir");
-			System.out.println("[2] Sacar dinheiro");
-			System.out.println("[3] Depositar dinheiro");
-			System.out.println("[4] Registro de atividades");
-			System.out.println("[5] Encerrar conta");
-			System.out.println();
-			System.out.println("[0] Voltar para o menu inicial");
-			System.out.println();
-			System.out.print("Escolha uma opção: ");
-			operation = scanner.nextInt();
-			scanner.nextLine();
 
+			operation = InputReader.readInt(menuText.toString());
 			System.out.println();
 
 			switch (operation) {

@@ -1,12 +1,10 @@
 package services;
 
-import java.util.Scanner;
-
 import entities.Account;
 import entities.Bank;
+import util.InputReader;
 
 public class TransactionService {
-	static Scanner scanner = new Scanner(System.in);
 
 	static void transferToAnotherAccount(Account payerAccount, Bank bank) {
 
@@ -25,11 +23,9 @@ public class TransactionService {
 			return;
 		}
 
-		System.out.print("Valor a ser transferido: ");
-		Double transferAmount = scanner.nextDouble();
-		scanner.nextLine();
+		Double amount = InputReader.readDouble("Valor a ser transferido: ");
 
-		boolean hasSufficientBalance = AccountService.checkIfYouHaveSufficientBalance(payerAccount, transferAmount);
+		boolean hasSufficientBalance = AccountService.checkIfYouHaveSufficientBalance(payerAccount, amount);
 
 		if (!hasSufficientBalance) {
 			AccountService.insufficientBalanceMessage(payerAccount);
@@ -43,19 +39,18 @@ public class TransactionService {
 			return;
 		}
 
-		payerAccount.withdrawal(transferAmount);
+		payerAccount.withdrawal(amount);
 
-		receiverAccount.deposit(transferAmount);
+		receiverAccount.deposit(amount);
 
 		payerAccount.addItemToActivityLog("Transferência para " + receiverAccount.getCustomer().getEmail() + " | - R$"
-				+ String.format("%.2f", transferAmount));
+				+ String.format("%.2f", amount));
 
 		receiverAccount.addItemToActivityLog("Transferência recebida de " + payerAccount.getCustomer().getEmail()
-				+ " | + R$" + String.format("%.2f", transferAmount));
+				+ " | + R$" + String.format("%.2f", amount));
 
-		System.out.println();
 		System.out.println("Transferência realizada com sucesso!");
-		System.out.printf("Transferido R$%.2f para %s.%n", transferAmount, receiverAccount.getCustomer().getName());
+		System.out.printf("Transferido R$%.2f para %s.%n", amount, receiverAccount.getCustomer().getName());
 		System.out.println();
 
 	}
