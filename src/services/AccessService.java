@@ -13,14 +13,19 @@ public class AccessService {
 
 		Account account = findAccountByEmail("Insira o email da conta: ", bank);
 
-		if (account == null)
+		if (account == null) {
+			invalidEmailMessage();
 			return;
-
+		}
+			
 		boolean validPassword = authenticatePassword(account);
 
-		if (validPassword) {
-			AccountMenu.carryOutOperationsOnTheAccount(account, bank);
+		if (!validPassword) {
+			invalidPasswordMessage();
+			return;
 		}
+		
+		AccountMenu.carryOutOperationsOnTheAccount(account, bank);
 	}
 
 	static Account findAccountByEmail(String message, Bank bank) {
@@ -29,17 +34,15 @@ public class AccessService {
 
 		Account account = bank.getAccountByEmail(email);
 
-		if (account == null) {
-			System.out.println();
-			System.out.println("Email incorreto ou conta inexistente!");
-			System.out.println("Tente novamente.");
-			System.out.println();
+		return account;
 
-			return null;
-		} else {
-			return account;
-		}
-
+	}
+	
+	static void invalidEmailMessage() {
+		System.out.println();
+		System.out.println("Email incorreto ou conta inexistente!");
+		System.out.println("Tente novamente.");
+		System.out.println();
 	}
 
 	static Boolean authenticatePassword(Account account) {
@@ -48,16 +51,11 @@ public class AccessService {
 
 		System.out.println();
 
-		boolean validPassword = password.equals(account.getPassword());
-
-		if (validPassword) {
-			return true;
-
-		} else {
-			System.out.println("Senha incorreta!");
-			System.out.println("Tente novamente.");
-			System.out.println();
-			return false;
-		}
+		return  password.equals(account.getPassword());
+	}
+	
+	static void invalidPasswordMessage() {
+		System.out.println("Senha incorreta. Tente novamente.");
+		System.out.println();
 	}
 }

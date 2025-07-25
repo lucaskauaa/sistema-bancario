@@ -7,14 +7,16 @@ import entities.Bank;
 
 public class TransactionService {
 	static Scanner scanner = new Scanner(System.in);
-	
-	static void makeTransaction(Account payerAccount, Bank bank) {
+
+	static void transferToAnotherAccount(Account payerAccount, Bank bank) {
 
 		Account receiverAccount = AccessService
 				.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);
 
-		if (receiverAccount == null)
+		if (receiverAccount == null) {
+			AccessService.invalidEmailMessage();
 			return;
+		}
 
 		if (receiverAccount.equals(payerAccount)) {
 			System.out.println();
@@ -29,13 +31,17 @@ public class TransactionService {
 
 		boolean hasSufficientBalance = AccountService.checkIfYouHaveSufficientBalance(payerAccount, transferAmount);
 
-		if (!hasSufficientBalance)
+		if (!hasSufficientBalance) {
+			AccountService.insufficientBalanceMessage(payerAccount);
 			return;
+		}
 
 		boolean validPassword = AccessService.authenticatePassword(payerAccount);
 
-		if (!validPassword)
+		if (!validPassword) {
+			AccessService.invalidPasswordMessage();
 			return;
+		}
 
 		payerAccount.withdrawal(transferAmount);
 

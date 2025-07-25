@@ -17,11 +17,18 @@ public class RegistrationService {
 		System.out.println("===================================");
 		System.out.println("Criação de conta:");
 
-		Customer customer = registerCustomer(bank);
-		
-		if (customer == null) 
+		Customer customer = registerCustomer();
+
+		boolean emailAlreadyRegistered = checkIfEmailIsAlreadyRegistered(bank, customer);
+
+		if (emailAlreadyRegistered) {
+			System.out.println("");
+			System.out.println("Já existe uma conta vinculada a esse email!");
+			System.out.println("");
+
 			return;
-		
+		}
+
 		Account account = registerAccount(customer, bank);
 
 		customer.setAccount(account);
@@ -35,7 +42,7 @@ public class RegistrationService {
 		System.out.println();
 	}
 
-	private static Customer registerCustomer(Bank bank) {
+	private static Customer registerCustomer() {
 
 		System.out.print("Insira o nome do titular da conta: ");
 		String customerName = scanner.nextLine();
@@ -45,19 +52,15 @@ public class RegistrationService {
 
 		System.out.print("Email: ");
 		String email = scanner.nextLine();
-		
-		Account account = bank.getAccountByEmail(email);
-		
-		if (account == null) {
-			return new Customer(customerName, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), email);
-		} else {
-			System.out.println("");
-			System.out.println("Já existe uma conta vinculada a esse email!");
-			System.out.println("");
-			
-			return null;
-		}
-		
+
+		return new Customer(customerName, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), email);
+
+	}
+
+	private static Boolean checkIfEmailIsAlreadyRegistered(Bank bank, Customer customer) {
+		Account account = bank.getAccountByEmail(customer.getEmail());
+
+		return account != null;
 	}
 
 	private static Account registerAccount(Customer customer, Bank bank) {
@@ -73,12 +76,10 @@ public class RegistrationService {
 		hasInitialDeposit = Character.toLowerCase(hasInitialDeposit);
 		scanner.nextLine();
 
-		Double depositValue;
-
 		if (hasInitialDeposit == 's') {
 
 			System.out.print("Insira o valor do depósito: ");
-			depositValue = scanner.nextDouble();
+			Double depositValue = scanner.nextDouble();
 			scanner.nextLine();
 
 			return new Account(customer, number, password, depositValue);

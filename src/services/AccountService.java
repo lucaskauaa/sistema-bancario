@@ -16,13 +16,17 @@ public class AccountService {
 
 		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, amount);
 
-		if (!hasSufficientBalance)
+		if (!hasSufficientBalance) {
+			insufficientBalanceMessage(account);
 			return;
+		}
 
 		boolean validPassword = AccessService.authenticatePassword(account);
 
-		if (!validPassword)
+		if (!validPassword) {
+			AccessService.invalidPasswordMessage();
 			return;
+		}
 
 		account.withdrawal(amount);
 
@@ -36,15 +40,15 @@ public class AccountService {
 
 	static Boolean checkIfYouHaveSufficientBalance(Account account, Double amount) {
 
-		if (account.getBalance() < amount) {
-			System.out.println();
-			System.out.println("Saldo insuficiente!");
-			System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
-			System.out.println();
-			return false;
-		} else {
-			return true;
-		}
+		return account.getBalance() >= amount;
+
+	}
+
+	static void insufficientBalanceMessage(Account account) {
+		System.out.println();
+		System.out.println("Saldo insuficiente!");
+		System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
+		System.out.println();
 	}
 
 	static void makeDeposit(Account account) {
@@ -90,8 +94,10 @@ public class AccountService {
 
 		boolean validPassword = AccessService.authenticatePassword(account);
 
-		if (!validPassword)
+		if (!validPassword) {
+			AccessService.invalidPasswordMessage();
 			return;
+		}
 
 		bank.removeAccount(account);
 		bank.removeCustomer(account.getCustomer());

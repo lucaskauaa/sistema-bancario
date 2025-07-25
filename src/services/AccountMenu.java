@@ -33,12 +33,12 @@ public class AccountMenu {
 			System.out.println();
 
 			switch (operation) {
-			case 1 -> TransactionService.makeTransaction(account, bank);
+			case 1 -> TransactionService.transferToAnotherAccount(account, bank);
 			case 2 -> AccountService.makeWithdrawal(account);
 			case 3 -> AccountService.makeDeposit(account);
 			case 4 -> AccountService.displayActivityLog(account);
 			case 5 -> AccountService.closeAccount(account, bank);
-			case 6 -> {
+			case 0 -> {
 				System.out.println("Voltando para o menu inical...\n");
 			}
 			default -> {
