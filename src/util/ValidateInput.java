@@ -37,7 +37,7 @@ public class ValidateInput {
 
 			} catch (InputMismatchException e) {
 				InputReader.scanner.nextLine();
-				System.out.println("\n[Erro] -> nInsira um valor numérico válido!\n");
+				System.out.println("\n[Erro] -> Insira um valor numérico válido!\n");
 			}
 		}
 

@@ -8,6 +8,8 @@ import util.ValidateInput;
 public class AccessService {
 
 	public static void accessAccount(Bank bank) {
+		
+		System.out.println("Acessar conta:\n");
 
 		Account account = findAccountByEmail("Insira o email da conta: ", bank);
 

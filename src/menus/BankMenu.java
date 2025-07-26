@@ -11,6 +11,7 @@ public class BankMenu {
 		StringBuilder menuText = new StringBuilder();
 		
 		menuText.append("==========================\n");
+		menuText.append("Menu: \n");
 		menuText.append("O que você deseja fazer?\n");
 		menuText.append("\n");
 		menuText.append("[1] Criar conta\n");

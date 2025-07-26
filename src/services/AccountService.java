@@ -8,6 +8,8 @@ public class AccountService {
 
 	public static void makeWithdrawal(Account account) {
 		
+		System.out.println("Saque:\n");
+		
 		Double amount = ValidateInput.getAmount("Valor do saque: ");
 
 		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, amount);
@@ -46,6 +48,8 @@ public class AccountService {
 
 	public static void makeDeposit(Account account) {
 		
+		System.out.println("Depósito:\n");
+		
 		Double amount =  ValidateInput.getAmount("Valor do depósito: ");
 
 		account.deposit(amount);
@@ -82,6 +86,8 @@ public class AccountService {
 
 			return;
 		}
+		
+		System.out.println("Encerraento de conta:\n");
 
 		boolean validPassword = AccessService.authenticatePassword(account);
 

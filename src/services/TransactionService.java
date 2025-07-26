@@ -7,6 +7,8 @@ import util.ValidateInput;
 public class TransactionService {
 
 	public static void transferToAnotherAccount(Account payerAccount, Bank bank) {
+		
+		System.out.println("Transferência:\n");
 
 		Account receiverAccount = AccessService
 				.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);

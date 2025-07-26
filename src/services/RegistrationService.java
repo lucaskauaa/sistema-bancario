@@ -13,7 +13,7 @@ public class RegistrationService {
 	public static void createAccount(Bank bank) {
 
 		System.out.println("===================================");
-		System.out.println("Criação de conta:");
+		System.out.println("Criação de conta:\n");
 
 		Customer customer = registerCustomer();
 
