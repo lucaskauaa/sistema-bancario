@@ -40,7 +40,7 @@ public class RegistrationService {
 		
 		String name = ValidateInput.getName("Insira o nome do titular da conta: ");
 		
-		LocalDate birthDate = ValidateInput.getBirthDate("Data de nascimento (DD/MM/YYYY): ");
+		LocalDate birthDate = ValidateInput.getBirthDate("Data de nascimento (dd/mm/aaaa): ");
 		
 		String email = ValidateInput.getEmail("Email: ");
 
@@ -70,7 +70,7 @@ public class RegistrationService {
 			case 'n':
 				return new Account(customer, number, password);
 			default :
-				System.out.println("\nOpção inválida!\n");
+				System.out.println("\n[Erro] -> Opção inválida!\n");
 			}
 		}
 

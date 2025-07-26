@@ -54,19 +54,19 @@ public class Account {
 	public void addItemToActivityLog(String operationText) {
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
 
-		activityLog.add("-> " + LocalDateTime.now().format(dateTimeFormatter) + " | " + operationText);
+		activityLog.add(0, "-> " + LocalDateTime.now().format(dateTimeFormatter) + " | " + operationText);
 	}
 
 	public int activityLogSize() {
 		return activityLog.size();
 	}
 
-	public void withdrawal(Double value) {
-		balance -= value;
+	public void withdrawal(Double amount) {
+		balance -= amount;
 	}
 
-	public void deposit(Double value) {
-		balance += value;
+	public void deposit(Double amount) {
+		balance += amount;
 	}
 
 	@Override

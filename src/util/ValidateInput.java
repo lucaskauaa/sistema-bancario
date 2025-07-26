@@ -16,7 +16,7 @@ public class ValidateInput {
 				return operation;
 			} catch (InputMismatchException e) {
 				InputReader.scanner.nextLine();
-				System.out.println("\nInsira um valor numérico!\n");
+				System.out.println("\n[Erro] -> Insira um valor numérico!\n");
 			}
 		}
 
@@ -29,7 +29,7 @@ public class ValidateInput {
 				double amount = InputReader.readDouble(message);
 
 				if (amount <= 0.0) {
-					System.out.println("\nInsira um valor maior que zero!\n");
+					System.out.println("\n[Erro] -> Insira um valor maior que zero!\n");
 					continue;
 				}
 
@@ -37,7 +37,7 @@ public class ValidateInput {
 
 			} catch (InputMismatchException e) {
 				InputReader.scanner.nextLine();
-				System.out.println("\nInsira um valor numérico válido!\n");
+				System.out.println("\n[Erro] -> nInsira um valor numérico válido!\n");
 			}
 		}
 
@@ -50,7 +50,7 @@ public class ValidateInput {
 			name = name.trim();
 			
 			if (!name.toLowerCase().matches("[a-zçãõâêîôûáéíóúàèìòùäëïöü.,' ]+")) {
-				System.out.println("\nEste campo não pode conter números ou caracteres especiais!\n");
+				System.out.println("\n[Erro] -> Este campo não pode conter números ou caracteres especiais!\n");
 				continue;
 			}
 			
@@ -72,7 +72,7 @@ public class ValidateInput {
 				return birthDate;
 
 			} catch (DateTimeException e) {
-				System.out.println("\nData inválida! Insira no padrão (dd/mm/aaaa)\n");
+				System.out.println("\n[Erro] -> Data inválida! Insira no padrão (dd/mm/aaaa)\n");
 			}
 
 		}
@@ -85,7 +85,7 @@ public class ValidateInput {
 			String email = InputReader.readString(message);
 			
 			if (!email.toLowerCase().matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
-				System.out.println("\nEmail invalido! Insira no padrão: nome@email.com\n");
+				System.out.println("\n[Erro] -> Email invalido! Insira no padrão: nome@email.com\n");
 				continue;
 			}
 			
@@ -101,7 +101,7 @@ public class ValidateInput {
 			password = InputReader.readString(message);
 			
 			if (password.length() < 4 || password.length() > 4 || !password.matches("[0123456789]+")) {
-				System.out.println("\nA senha deve conter 04 dígitos numéricos!\n");
+				System.out.println("\n[Erro] -> A senha deve conter 04 dígitos numéricos!\n");
 			
 				continue;
 			}

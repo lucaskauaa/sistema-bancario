@@ -6,7 +6,7 @@ import util.ValidateInput;
 
 public class TransactionService {
 
-	static void transferToAnotherAccount(Account payerAccount, Bank bank) {
+	public static void transferToAnotherAccount(Account payerAccount, Bank bank) {
 
 		Account receiverAccount = AccessService
 				.findAccountByEmail("Insira o email da conta para a qual você deseja transferir: ", bank);
@@ -48,7 +48,7 @@ public class TransactionService {
 				+ " | + R$" + String.format("%.2f", amount));
 
 		System.out.println("Transferência realizada com sucesso!");
-		System.out.printf("Transferido R$%.2f para %s.%n", amount, receiverAccount.getCustomer().getName() + "\n");
+		System.out.printf("Transferido R$%.2f para %s%n%n", amount, receiverAccount.getCustomer().getName());
 
 	}
 }

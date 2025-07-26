@@ -6,7 +6,7 @@ import util.ValidateInput;
 
 public class AccountService {
 
-	static void makeWithdrawal(Account account) {
+	public static void makeWithdrawal(Account account) {
 		
 		Double amount = ValidateInput.getAmount("Valor do saque: ");
 
@@ -33,18 +33,18 @@ public class AccountService {
 	
 	}
 
-	static Boolean checkIfYouHaveSufficientBalance(Account account, Double amount) {
+	public static Boolean checkIfYouHaveSufficientBalance(Account account, Double amount) {
 
 		return account.getBalance() >= amount;
 
 	}
 
-	static void insufficientBalanceMessage(Account account) {
+	public static void insufficientBalanceMessage(Account account) {
 		System.out.println("\nSaldo insuficiente!");
 		System.out.printf("Saldo atual: R$%.2f%n%n", account.getBalance());
 	}
 
-	static void makeDeposit(Account account) {
+	public static void makeDeposit(Account account) {
 		
 		Double amount =  ValidateInput.getAmount("Valor do depósito: ");
 
@@ -56,12 +56,15 @@ public class AccountService {
 		System.out.printf("Valor depositado: R$%.2f%n%n", amount);
 	}
 
-	static void displayActivityLog(Account account) {
+	public static void displayActivityLog(Account account) {
+		
+		System.out.println("Atividade:\n");
 
 		if (account.activityLogSize() == 0) {
 			System.out.println("-> A conta ainda não possui nehuma atividade!\n");
 
 		} else {
+			
 
 			for (String activity : account.getActivityLog()) {
 				System.out.println(activity);
@@ -71,7 +74,7 @@ public class AccountService {
 		}
 	}
 
-	static void closeAccount(Account account, Bank bank) {
+	public static void closeAccount(Account account, Bank bank) {
 
 		if (account.getBalance() != 0.0) {
 			System.out.println("É necessário sacar ou transferir todo o dinheiro da conta antes de encerrá-la!");

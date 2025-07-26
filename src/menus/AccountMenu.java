@@ -1,12 +1,14 @@
-package services;
+package menus;
 
 import entities.Account;
 import entities.Bank;
+import services.AccountService;
+import services.TransactionService;
 import util.ValidateInput;
 
 public class AccountMenu {
 
-	static void carryOutOperationsOnTheAccount(Account account, Bank bank) {
+	public static void carryOutOperationsOnTheAccount(Account account, Bank bank) {
 
 		int operation;
 
@@ -41,7 +43,7 @@ public class AccountMenu {
 				System.out.println("Voltando para o menu inical...\n");
 			}
 			default -> {
-				System.out.println("Opção inválida. Tente novamente.\n");
+				System.out.println("[Erro] -> Opção inválida. Tente novamente.\n");
 			}
 			}
 
