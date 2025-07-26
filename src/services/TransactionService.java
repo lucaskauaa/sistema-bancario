@@ -2,7 +2,7 @@ package services;
 
 import entities.Account;
 import entities.Bank;
-import util.InputReader;
+import util.ValidateInput;
 
 public class TransactionService {
 
@@ -23,7 +23,7 @@ public class TransactionService {
 			return;
 		}
 
-		Double amount = InputReader.readDouble("Valor a ser transferido: ");
+		Double amount = ValidateInput.getAmount("Valor a ser transferido: ");
 
 		boolean hasSufficientBalance = AccountService.checkIfYouHaveSufficientBalance(payerAccount, amount);
 

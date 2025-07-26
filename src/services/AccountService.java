@@ -2,13 +2,13 @@ package services;
 
 import entities.Account;
 import entities.Bank;
-import util.InputReader;
+import util.ValidateInput;
 
 public class AccountService {
 
 	static void makeWithdrawal(Account account) {
 		
-		Double amount = InputReader.readDouble("Valor do saque: ");
+		Double amount = ValidateInput.getAmount("Valor do saque: ");
 
 		boolean hasSufficientBalance = checkIfYouHaveSufficientBalance(account, amount);
 
@@ -48,7 +48,7 @@ public class AccountService {
 
 	static void makeDeposit(Account account) {
 		
-		Double amount = InputReader.readDouble("Valor do depósito: ");
+		Double amount =  ValidateInput.getAmount("Valor do depósito: ");
 
 		account.deposit(amount);
 

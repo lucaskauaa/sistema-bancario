@@ -1,12 +1,12 @@
 package services;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import entities.Account;
 import entities.Bank;
 import entities.Customer;
 import util.InputReader;
+import util.ValidateInput;
 
 public class RegistrationService {
 
@@ -44,11 +44,11 @@ public class RegistrationService {
 		
 		String name = InputReader.readString("Insira o nome do titular da conta: ");
 		
-		String birthDate = InputReader.readString("Data de nascimento (DD/MM/YYYY): ");
+		LocalDate birthDate = ValidateInput.getBirthDate("Data de nascimento (DD/MM/YYYY): ");
 		
 		String email = InputReader.readString("Email: ");
 
-		return new Customer(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), email);
+		return new Customer(name, birthDate, email);
 	}
 
 	private static Boolean checkIfEmailIsAlreadyRegistered(Bank bank, Customer customer) {
@@ -67,9 +67,9 @@ public class RegistrationService {
 
 		if (hasInitialDeposit == 's') {
 			
-			Double depositAmount = InputReader.readDouble("Insira o valor do depósito: ");
+			Double amount = ValidateInput.getAmount("Insira o valor do depósito: ");
 
-			return new Account(customer, number, password, depositAmount);
+			return new Account(customer, number, password, amount);
 
 		} else {
 			return new Account(customer, number, password);

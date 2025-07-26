@@ -2,7 +2,7 @@ package services;
 
 import entities.Account;
 import entities.Bank;
-import util.InputReader;
+import util.ValidateInput;
 
 public class AccountMenu {
 
@@ -28,7 +28,7 @@ public class AccountMenu {
 
 		do {
 
-			operation = InputReader.readInt(menuText.toString());
+			operation = ValidateInput.selectOperation(menuText.toString());
 			System.out.println();
 
 			switch (operation) {

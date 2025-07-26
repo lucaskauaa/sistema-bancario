@@ -3,7 +3,7 @@ package util;
 import java.util.Scanner;
 
 public class InputReader {
-	private static Scanner scanner = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in);
 	
 	public static String readString (String message) {
 		System.out.print(message);

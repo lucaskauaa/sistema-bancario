@@ -3,7 +3,7 @@ package program;
 import entities.Bank;
 import services.AccessService;
 import services.RegistrationService;
-import util.InputReader;
+import util.ValidateInput;
 
 public class Main {
 
@@ -23,7 +23,7 @@ public class Main {
 		int operation;
 		
 		do {
-			operation = InputReader.readInt(menuText.toString());
+			operation = ValidateInput.selectOperation(menuText.toString());
 			System.out.println();
 			
 			switch (operation) {
