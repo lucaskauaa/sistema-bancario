@@ -2,7 +2,7 @@ package services;
 
 import entities.Account;
 import entities.Bank;
-import util.InputReader;
+import util.ValidateInput;
 
 public class AccessService {
 
@@ -27,7 +27,7 @@ public class AccessService {
 
 	static Account findAccountByEmail(String message, Bank bank) {
 		
-		String email = InputReader.readString(message);
+		String email = ValidateInput.getEmail(message);
 
 		Account account = bank.getAccountByEmail(email);
 
@@ -36,15 +36,13 @@ public class AccessService {
 	}
 	
 	static void invalidEmailMessage() {
-		System.out.println();
-		System.out.println("Email incorreto ou conta inexistente!");
-		System.out.println("Tente novamente.");
-		System.out.println();
+		System.out.println("\nEmail incorreto ou conta inexistente!");
+		System.out.println("Tente novamente.\n");
 	}
 
 	static Boolean authenticatePassword(Account account) {
 		
-		String password = InputReader.readString("Digite a senha da conta: ");
+		String password = ValidateInput.getPassword("Digite a senha da conta: ");
 
 		System.out.println();
 
@@ -52,7 +50,6 @@ public class AccessService {
 	}
 	
 	static void invalidPasswordMessage() {
-		System.out.println("Senha incorreta. Tente novamente.");
-		System.out.println();
+		System.out.println("Senha incorreta. Tente novamente.\n");
 	}
 }

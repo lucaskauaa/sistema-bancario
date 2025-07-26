@@ -17,9 +17,7 @@ public class TransactionService {
 		}
 
 		if (receiverAccount.equals(payerAccount)) {
-			System.out.println();
-			System.out.println("Você não pode transferir para a própria conta!");
-			System.out.println();
+			System.out.println("\nVocê não pode transferir para a própria conta!\n");
 			return;
 		}
 
@@ -50,8 +48,7 @@ public class TransactionService {
 				+ " | + R$" + String.format("%.2f", amount));
 
 		System.out.println("Transferência realizada com sucesso!");
-		System.out.printf("Transferido R$%.2f para %s.%n", amount, receiverAccount.getCustomer().getName());
-		System.out.println();
+		System.out.printf("Transferido R$%.2f para %s.%n", amount, receiverAccount.getCustomer().getName() + "\n");
 
 	}
 }

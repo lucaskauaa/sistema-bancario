@@ -8,25 +8,25 @@ public class AccountMenu {
 
 	static void carryOutOperationsOnTheAccount(Account account, Bank bank) {
 
-		StringBuilder menuText = new StringBuilder();
-
-		menuText.append(account + "\n");
-		menuText.append("\n");
-		menuText.append("[1] Transferir\n");
-		menuText.append("[2] Sacar dinheiro\n");
-		menuText.append("[3] Depositar dinheiro\n");
-		menuText.append("[4] Registro de atividades\n");
-		menuText.append("[5] Encerrar conta\n");
-		menuText.append("\n");
-		menuText.append("[0] Voltar para o menu inicial\n");
-		menuText.append("\n");
-		menuText.append("Escolha uma opção: ");
-
 		int operation;
 
 		boolean accountStillActive;
 
 		do {
+			
+			StringBuilder menuText = new StringBuilder();
+
+			menuText.append(account + "\n");
+			menuText.append("\n");
+			menuText.append("[1] Transferir\n");
+			menuText.append("[2] Sacar dinheiro\n");
+			menuText.append("[3] Depositar dinheiro\n");
+			menuText.append("[4] Registro de atividades\n");
+			menuText.append("[5] Encerrar conta\n");
+			menuText.append("\n");
+			menuText.append("[0] Voltar para o menu inicial\n");
+			menuText.append("\n");
+			menuText.append("Escolha uma opção: ");
 
 			operation = ValidateInput.selectOperation(menuText.toString());
 			System.out.println();

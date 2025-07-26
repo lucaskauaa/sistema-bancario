@@ -42,6 +42,21 @@ public class ValidateInput {
 		}
 
 	}
+	
+	public static String getName(String message) {
+		while (true) {
+			String name = InputReader.readString(message);
+			
+			name = name.trim();
+			
+			if (!name.toLowerCase().matches("[a-zçãõâêîôûáéíóúàèìòùäëïöü.,' ]+")) {
+				System.out.println("\nEste campo não pode conter números ou caracteres especiais!\n");
+				continue;
+			}
+			
+			return name;
+		}
+	}
 
 	public static LocalDate getBirthDate(String message) {
 
@@ -62,6 +77,37 @@ public class ValidateInput {
 
 		}
 
+	}
+	
+	public static String getEmail(String message) {
+		
+		while (true) {
+			String email = InputReader.readString(message);
+			
+			if (!email.toLowerCase().matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
+				System.out.println("\nEmail invalido! Insira no padrão: nome@email.com\n");
+				continue;
+			}
+			
+			return email;
+		}
+		
+	}
+	
+	public static String getPassword(String message) {
+		String password;
+		
+		while (true) {
+			password = InputReader.readString(message);
+			
+			if (password.length() < 4 || password.length() > 4 || !password.matches("[0123456789]+")) {
+				System.out.println("\nA senha deve conter 04 dígitos numéricos!\n");
+			
+				continue;
+			}
+			
+			return password;
+		}
 	}
 
 }

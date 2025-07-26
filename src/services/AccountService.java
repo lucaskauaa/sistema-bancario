@@ -29,8 +29,8 @@ public class AccountService {
 		account.addItemToActivityLog("Saque | - R$" + String.format("%.2f", amount));
 
 		System.out.println("Saque realizado com sucesso!");
-		System.out.printf("Valor sacado: R$%.2f%n", amount);
-		System.out.println();
+		System.out.printf("Valor sacado: R$%.2f%n%n", amount);
+	
 	}
 
 	static Boolean checkIfYouHaveSufficientBalance(Account account, Double amount) {
@@ -40,10 +40,8 @@ public class AccountService {
 	}
 
 	static void insufficientBalanceMessage(Account account) {
-		System.out.println();
-		System.out.println("Saldo insuficiente!");
-		System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
-		System.out.println();
+		System.out.println("\nSaldo insuficiente!");
+		System.out.printf("Saldo atual: R$%.2f%n%n", account.getBalance());
 	}
 
 	static void makeDeposit(Account account) {
@@ -54,17 +52,14 @@ public class AccountService {
 
 		account.addItemToActivityLog("Depósito | + R$" + String.format("%.2f", amount));
 
-		System.out.println();
-		System.out.println("Deposito realizado com sucesso!");
-		System.out.printf("Valor depositado: R$%.2f%n", amount);
-		System.out.println();
+		System.out.println("\nDeposito realizado com sucesso!");
+		System.out.printf("Valor depositado: R$%.2f%n%n", amount);
 	}
 
 	static void displayActivityLog(Account account) {
 
 		if (account.activityLogSize() == 0) {
-			System.out.println("-> A conta ainda não possui nehuma atividade!");
-			System.out.println();
+			System.out.println("-> A conta ainda não possui nehuma atividade!\n");
 
 		} else {
 
@@ -80,8 +75,7 @@ public class AccountService {
 
 		if (account.getBalance() != 0.0) {
 			System.out.println("É necessário sacar ou transferir todo o dinheiro da conta antes de encerrá-la!");
-			System.out.printf("Saldo atual: R$%.2f%n", account.getBalance());
-			System.out.println();
+			System.out.printf("Saldo atual: R$%.2f%n%n", account.getBalance());
 
 			return;
 		}
@@ -95,8 +89,7 @@ public class AccountService {
 
 		bank.removeAccount(account);
 		bank.removeCustomer(account.getCustomer());
-		System.out.println("Conta encerrada com sucesso!");
-		System.out.println();
+		System.out.println("Conta encerrada com sucesso!\n");
 
 	}
 }

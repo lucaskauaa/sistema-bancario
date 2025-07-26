@@ -20,9 +20,7 @@ public class RegistrationService {
 		boolean emailAlreadyRegistered = checkIfEmailIsAlreadyRegistered(bank, customer);
 
 		if (emailAlreadyRegistered) {
-			System.out.println();
-			System.out.println("Já existe uma conta vinculada a esse email!");
-			System.out.println();
+			System.out.println("\nJá existe uma conta vinculada a esse email!\n");
 
 			return;
 		}
@@ -35,18 +33,16 @@ public class RegistrationService {
 
 		bank.addAccount(account);
 
-		System.out.println();
-		System.out.println("Conta criada com sucesso!");
-		System.out.println();
+		System.out.println("\nConta criada com sucesso!\n");
 	}
 
 	private static Customer registerCustomer() {
 		
-		String name = InputReader.readString("Insira o nome do titular da conta: ");
+		String name = ValidateInput.getName("Insira o nome do titular da conta: ");
 		
 		LocalDate birthDate = ValidateInput.getBirthDate("Data de nascimento (DD/MM/YYYY): ");
 		
-		String email = InputReader.readString("Email: ");
+		String email = ValidateInput.getEmail("Email: ");
 
 		return new Customer(name, birthDate, email);
 	}
@@ -61,18 +57,21 @@ public class RegistrationService {
 
 		Integer number = bank.accountListSize() + 1;
 		
-		String password = InputReader.readString("Defina uma senha numérica de 04 dígitos: ");
+		String password = ValidateInput.getPassword("Defina uma senha numérica com 04 dígitos: ");
 		
-		char hasInitialDeposit = InputReader.readChar("Deseja fazer um depósito inicial? s/n ");
-
-		if (hasInitialDeposit == 's') {
+		while (true) {
+			char hasInitialDeposit = InputReader.readChar("Deseja fazer um depósito inicial? s/n ");
 			
-			Double amount = ValidateInput.getAmount("Insira o valor do depósito: ");
+			switch (hasInitialDeposit) {
+			case 's':
+				Double amount = ValidateInput.getAmount("Insira o valor do depósito: ");
 
-			return new Account(customer, number, password, amount);
-
-		} else {
-			return new Account(customer, number, password);
+				return new Account(customer, number, password, amount);
+			case 'n':
+				return new Account(customer, number, password);
+			default :
+				System.out.println("\nOpção inválida!\n");
+			}
 		}
 
 	}
